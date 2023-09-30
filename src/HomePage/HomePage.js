@@ -1,10 +1,10 @@
 import React from 'react';
-
 function HomePage() {
-  return (
+
+    return (
     <main className="center" id="main">
 
-        <div className="page">
+        <div className="page-area">
 
             <article>
                 <h1>Stay on track</h1>
@@ -38,14 +38,18 @@ function HomePage() {
                 </p>
             </article>
 
+            <article>
+                <h1>Chart</h1>
+                <p>
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </p>
+            </article>
 
         </div>
 
-        <div id = "d3Chart">
-
-        </div>
+        <div id = "d3Chart" width="400" height="400"></div>
     </main>
-  );
+    );
 }
 
 export default HomePage;
