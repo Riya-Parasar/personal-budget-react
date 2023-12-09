@@ -8,7 +8,7 @@ const ChartComponent = () => {
 
   const [barChartLabels, setBarChartLabels] = useState(['Eat out', 'Rent', 'Grocery', 'Shopping', 'Events', 'Holidays', 'Pets']);
   const [pieChartLabels, setPieChartLabels] = useState(['Eat out', 'Rent', 'Grocery', 'Shopping', 'Events', 'Holidays', 'Pets']);
-  const [lineChartLabels, setLineChartLabels] = useState(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+  const [lineChartLabels] = useState(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
 
   const barChartRef = useRef(null);
   const pieChartRef = useRef(null);
@@ -25,22 +25,23 @@ const ChartComponent = () => {
         label: 'Bar Chart',
         data: barChartData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
-          'rgba(255, 159, 64, 0.5)',
-          'rgba(23, 45, 123, 0.5)',
+          // Neon green colors
+          'rgba(50, 205, 50, 0.5)',
+          'rgba(154, 205, 50, 0.5)',
+          'rgba(50, 205, 154, 0.5)',
+          'rgba(124, 252, 0, 0.5)',
+          'rgba(127, 255, 0, 0.5)',
+          'rgba(0, 255, 127, 0.5)',
+          'rgba(0, 100, 0, 0.5)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(23, 45, 123, 1)',
+          'rgba(50, 205, 50, 1)',
+          'rgba(154, 205, 50, 1)',
+          'rgba(50, 205, 154, 1)',
+          'rgba(124, 252, 0, 1)',
+          'rgba(127, 255, 0, 1)',
+          'rgba(0, 255, 127, 1)',
+          'rgba(0, 100, 0, 1)',
         ],
         borderWidth: 1,
       }],
@@ -52,13 +53,14 @@ const ChartComponent = () => {
         label: 'Pie Chart',
         data: pieChartData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
-          'rgba(255, 159, 64, 0.5)',
-          'rgba(23, 45, 123, 0.5)',
+          // Neon green colors
+          'rgba(50, 205, 50, 0.5)',
+          'rgba(154, 205, 50, 0.5)',
+          'rgba(50, 205, 154, 0.5)',
+          'rgba(124, 252, 0, 0.5)',
+          'rgba(127, 255, 0, 0.5)',
+          'rgba(0, 255, 127, 0.5)',
+          'rgba(0, 100, 0, 0.5)',
         ],
         hoverOffset: 4,
       }],
@@ -70,7 +72,7 @@ const ChartComponent = () => {
         label: 'Line Chart',
         data: lineChartData,
         fill: false,
-        borderColor: 'rgba(75, 192, 192, 1)',
+        borderColor: 'rgba(101, 67, 33, 0.5)',
         tension: 0.1,
       }],
     };
@@ -127,82 +129,70 @@ const ChartComponent = () => {
     setLineChartData(newData);
   };
 
-  const handleBarLabelChange = (e, index) => {
-    const newLabels = [...barChartLabels];
-    newLabels[index] = e.target.value;
-    setBarChartLabels(newLabels);
-  };
-
-  const handlePieLabelChange = (e, index) => {
-    const newLabels = [...pieChartLabels];
-    newLabels[index] = e.target.value;
-    setPieChartLabels(newLabels);
-  };
-
-  const handleLineLabelChange = (e, index) => {
-    const newLabels = [...lineChartLabels];
-    newLabels[index] = e.target.value;
-    setLineChartLabels(newLabels);
-  };
-
   return (
     <div>
-      <div>
+      <div className="chart-section">
         <h3>Bar Chart</h3>
         {barChartLabels.map((label, index) => (
-          <div key={`bar_label_${index}`}>
+          <div key={`bar_label_${index}`} className="chart-input">
             <input
               type="text"
               value={label}
-              onChange={(e) => handleBarLabelChange(e, index)}
+              onChange={(e) => setBarChartLabels(e.target.value)}
+              className="chart-label-input"
             />
             <input
               type="number"
               value={barChartData[index]}
               onChange={(e) => handleBarDataChange(e, index)}
+              className="chart-data-input"
             />
           </div>
         ))}
+        <canvas ref={barChartRef} />
       </div>
-      <canvas ref={barChartRef} />
 
-      <div>
+      <div className="chart-section">
         <h3>Pie Chart</h3>
         {pieChartLabels.map((label, index) => (
-          <div key={`pie_label_${index}`}>
+          <div key={`pie_label_${index}`} className="chart-input">
             <input
               type="text"
               value={label}
-              onChange={(e) => handlePieLabelChange(e, index)}
+              onChange={(e) => setPieChartLabels(e.target.value)}
+              className="chart-label-input"
             />
             <input
               type="number"
               value={pieChartData[index]}
               onChange={(e) => handlePieDataChange(e, index)}
+              className="chart-data-input"
             />
           </div>
         ))}
+        <canvas ref={pieChartRef} />
       </div>
-      <canvas ref={pieChartRef} />
 
-      <div>
+      <div className="chart-section">
         <h3>Line Chart</h3>
         {lineChartLabels.map((label, index) => (
-          <div key={`line_label_${index}`}>
+          <div key={`line_label_${index}`} className="chart-input">
             <input
               type="text"
               value={label}
-              onChange={(e) => handleLineLabelChange(e, index)}
+              className="chart-label-input"
+              readOnly // Make Line Chart labels read-only
             />
             <input
               type="number"
               value={lineChartData[index]}
               onChange={(e) => handleLineDataChange(e, index)}
+              className="chart-data-input"
             />
           </div>
         ))}
+        <canvas ref={lineChartRef} />
       </div>
-      <canvas ref={lineChartRef} />
     </div>
   );
 };

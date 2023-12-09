@@ -61,6 +61,7 @@ function HomePage() {
 
         <article>
                 <h1>HOMEPAGE!!</h1>
+                <h1>Welcome to Riya's Personal Budget App!</h1>
             </article>
             <article>
                 <h1>Stay on track</h1>

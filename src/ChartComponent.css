@@ -1,0 +1,21 @@
+.chart-input {
+    margin-bottom: 10px;
+  }
+  
+  .chart-label-input,
+  .chart-data-input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .chart-label-input {
+    width: 150px;
+  }
+  
+  .chart-data-input {
+    width: 100px;
+  }
+  
