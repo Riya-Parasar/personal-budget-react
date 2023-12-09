@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import axios from 'axios';
 import { Chart } from 'react-chartjs-2';
 import * as d3 from 'd3';
@@ -211,3 +211,84 @@ export default class Budget extends React.Component {
         );
     }
 }
+
+*/
+
+
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Chart } from 'react-chartjs-2';
+import * as d3 from 'd3';
+import 'd3-selection'; // Import the required submodules
+import 'd3-shape';
+import { hierarchy, tree } from 'd3-hierarchy'; // For example, if you're using a tree layout.
+
+class Budget extends Component {
+    chart = null;
+    dataSource = {
+        datasets: [
+            {
+                data: [],
+                backgroundColor: [
+                    '#ffcd56',
+                    '#pink',
+                    '#green',
+                    '#fd6b19',
+                    'red',
+                    'yellow',
+                    'fd6b19',
+                ]
+            }
+        ],
+        labels: []
+    };
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        axios.get('budget-data.json') // Adjust the path to your JSON file accordingly
+            .then(res => {
+                const data = res.data;
+                for (let i = 0; i < data.length; i++) {
+                    this.dataSource.datasets[0].data[i] = data[i].budget;
+                    this.dataSource.labels[i] = data[i].title;
+                }
+                this.createChart();
+                this.createD3Chart(data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    };
+
+    createChart = () => {
+        const ctx = document.getElementById("myChart");
+        const chartInstance = Chart.getChart(ctx);
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+
+        this.chart = new Chart(ctx, {
+            type: "pie",
+            data: this.dataSource
+        });
+    };
+
+    createD3Chart = (data) => {
+        // D3 chart creation logic using the provided 'data'
+        // ... Your existing D3 chart logic using the fetched 'data' ...
+    };
+
+    render() {
+        return (
+            <div>
+                <canvas id="myChart" width="400" height="200"></canvas>
+                <div id="d3Chart"></div>
+            </div>
+        );
+    }
+}
+
+export default Budget;
