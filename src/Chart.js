@@ -25,7 +25,6 @@ const ChartComponent = () => {
         label: 'Bar Chart',
         data: barChartData,
         backgroundColor: [
-          // Neon green colors
           'rgba(50, 205, 50, 0.5)',
           'rgba(154, 205, 50, 0.5)',
           'rgba(50, 205, 154, 0.5)',
@@ -53,7 +52,6 @@ const ChartComponent = () => {
         label: 'Pie Chart',
         data: pieChartData,
         backgroundColor: [
-          // Neon green colors
           'rgba(50, 205, 50, 0.5)',
           'rgba(154, 205, 50, 0.5)',
           'rgba(50, 205, 154, 0.5)',
@@ -111,6 +109,22 @@ const ChartComponent = () => {
     };
   }, [barChartData, pieChartData, lineChartData, barChartLabels, pieChartLabels, lineChartLabels]);
 
+  const handleBarLabelChange = (e, index) => {
+    const newLabels = [...barChartLabels];
+    newLabels[index] = e.target.value;
+    setBarChartLabels(newLabels);
+  };
+
+  const handlePieLabelChange = (e, index) => {
+    const newLabels = [...pieChartLabels];
+    newLabels[index] = e.target.value;
+    setPieChartLabels(newLabels);
+  };
+
+  const handleLineLabelChange = (e, index) => {
+    // Line Chart labels are read-only, so no label changes are allowed
+  };
+
   const handleBarDataChange = (e, index) => {
     const newData = [...barChartData];
     newData[index] = parseInt(e.target.value, 10);
@@ -138,7 +152,7 @@ const ChartComponent = () => {
             <input
               type="text"
               value={label}
-              onChange={(e) => setBarChartLabels(e.target.value)}
+              onChange={(e) => handleBarLabelChange(e, index)}
               className="chart-label-input"
             />
             <input
@@ -159,7 +173,7 @@ const ChartComponent = () => {
             <input
               type="text"
               value={label}
-              onChange={(e) => setPieChartLabels(e.target.value)}
+              onChange={(e) => handlePieLabelChange(e, index)}
               className="chart-label-input"
             />
             <input
@@ -181,7 +195,7 @@ const ChartComponent = () => {
               type="text"
               value={label}
               className="chart-label-input"
-              readOnly // Make Line Chart labels read-only
+              readOnly
             />
             <input
               type="number"
